@@ -1,0 +1,27 @@
+1. Passo – Instalação do pacote
+#apt-get install samba
+2. Passo - Observar as permissões das pastas
+#chmod 777 <pasta>
+Exemplo:
+#chmod 777 comum
+(que está em /home)
+3. Passo - Editar o arquivo do samba
+#vi /etc/samba/smb.conf
+(pode apagar o arquivo existente e criar um novo)
+[global]
+server string = server samba
+workgroup = workgroup
+wins support = yes
+security = user
+username map = /etc/samba/smbpasswd
+[comum]
+path = /home/comum
+valid users = %U
+comment = este é um servidor de arquivos
+read only = no
+Importante: Após definir o nível de segurança, lembre-se:
+ Se for Share, não haverá autenticação de usuários
+ Se for user, para adicionar usuário:
+#smbpasswd –a <nomeusuario>
+4. Passo - Testar e executar o samba
+#testparm
