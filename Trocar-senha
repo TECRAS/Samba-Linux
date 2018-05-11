@@ -1,0 +1,29 @@
+# Comando para força o usuário trocar a senha no primeiro login 
+http://e-tinet.com/linux/servidor-samba-com-troca-de-senha-obrigatorio/
+
+
+net sam set pwdmustchangenow nome_do_usuario yes
+
+
+Para começar…
+
+CRIANDO UM USUÁRIO
+Primeiro vamos criar um grupo
+
+root #> groupadd TI
+
+Agora vamos criar um usuário normal, primeiro no linux
+
+root #> useradd -m -c "Pedro Delfino" -G TI -g users pedrodelfino
+
+Definimos a senha
+
+root #> passwd pedrodelfino
+
+Lembrando que esta senha, é o acesso ao sistema no sheel no linux, ainda nâo é a senha do samba
+
+MAPEANDO GRUPO DO LINUX PARA O SAMBA
+Agora vamos usar o comando net groupmap para mapear o grupo do linux para o samba
+
+http://e-tinet.com/linux/gerenciando-usuarios-de-um-servidor-samba-com-o-pdbedit-parte-01/
+
