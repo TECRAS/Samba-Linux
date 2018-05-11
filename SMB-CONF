@@ -1,0 +1,106 @@
+# Configurações Globais do arquivos
+
+#Global Parameters
+
+[global]
+
+#Nome de seu Grupo de Trabalho
+    workgroup = empresa
+
+#Server String
+    server string = Linux Server - empresa
+
+#Security
+    security = user
+
+#Log file
+    log file = /var/log/samba/log.%m
+
+    socket options = TCP_NODELAY SO_RCVBUF=8192 SO_SNDBUF=8192
+#
+    level2 oplocks = no
+    oplocks = no
+#
+    read raw = yes
+    write raw = yes
+    max xmit = 65535
+    deadtime = 15
+    getwd cache = yes
+#
+    unix charset = ISO8859-1
+    display charset = ISO8859-1
+    dos charset = ISO8859-1    
+# Correção de caracteres especias    
+#    unix charset = UTF-8
+#    display charset = cp850
+#    dos charset = 850
+
+#
+    netbios name = servidor
+    null passwords = no
+    dns proxy = no
+    unix password sync = no
+    encrypt passwords = yes
+    map to guest = never
+    password level = 0
+    os level = 33
+    preferred master = yes
+    local master = yes
+    domain master = no
+    wins support = no
+    dead time = 0
+    debug level = 0
+    load printers = no
+    printing = bsd
+    domain logons = no
+    wins support = no
+    strict sync = yes
+    sync always = yes 
+    comment = Linux Server - Polis
+    enable privileges = yes
+    admin users = suporte
+
+[grupos-1]
+    comment = GRUPOS-1 Linux Server
+    browseable = yes
+    path = /rede/sdb1-grupos-1
+    public = no
+    guest only = no
+    writable = yes
+    users = @users
+    write list = @users
+    valid users = @users
+    create mask = 0775
+    force create mode = 0775
+    directory mask = 0775
+    force directory mode = 0775
+
+[grupos-2]
+    comment = GRUPOS-2 Linux Server
+    browseable = yes
+    path = /rede/sdc1-grupos-2
+    public = no
+    guest only = no
+    writable = yes
+    users = @users
+    write list = @users
+    valid users = @users
+    create mask = 0775
+    force create mode = 0775
+    directory mask = 0775
+    force directory mode = 0775
+
+[usuarios]
+    comment = USUARIOS Linux Server
+    browseable = yes
+    path = /rede/sdd1-usuarios
+    public = no
+    guest only = no
+    writable = yes
+    users = @users
+    write list = @users
+    valid users = @users
+    create mask = 0770
+    force create mode = 0770
+    directory mask = 0770
+    force directory mode = 0770
