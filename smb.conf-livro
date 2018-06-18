@@ -1,0 +1,88 @@
+; Atualizando a lista de pacote
+apt-get update 
+apt-get upgrade
+# Instalandoo samba
+
+apt install samba samba-commom libcups2
+
+; Configurações globais smb.conf
+#
+[global]
+
+workgroup = Dominio
+netbios name = empresa
+server string = Samba Server 
+
+domain master = yes
+domain logons = yes
+logon path = \\%L\profiles\%U
+logon script = netlogon.bat
+
+security = user
+encrypt passwords =  yes
+enable privileges = yes
+passdb backend = tdbsam 
+
+preferred master = yes
+local master = yes 
+os level = 100
+wins support = yes 
+
+[profiles]
+;
+path = /srv/profiles
+read only = no
+browseable = no 
+writable = yes
+
+[netlogon]
+comment = Servico de Logon
+path = /var/samba/netlogon
+read only = yes
+browseable = yes
+;
+[homes]
+valid users = %S
+create mask = 0700
+directory mask = 0700
+browseable = no
+
+[arquivos]
+path = /srv/arquivos
+writable = yes 
+
+
+# Criando os diretorios 
+
+mkdir /srv/profiles
+mkdir /var/samba/netlogon
+mkdir /srv/arquivos
+
+# Alterando as permissões 
+chmod 1777 /srv/profiles 
+chmod 1777 /srv/arquivos
+
+
+# Criar o para perfil movel script netlogon.bat
+vim /var/samba/netlogon.bat 
+net use h: /HOME
+net use z: \\ip_do-servidor_arquiivos /yes
+
+# Criar uma máquina com o nome da sua máquina windows no dominio
+useradd -d /dev/null -s /bin/false home$
+passwd -l home$
+smbpasswd -a -m home
+echo "bin/false" >> /etc/shells
+
+# Criar usuário que será usado para logar no dominio
+useradd -s -m /bin/false usuario
+smbpasswd -a usuario 
+# Criar home do usuario
+mkdir /home/usuario
+mkdir /home/usuario/profile.pds
+chown usuario.usuario -R /home/usuario
+
+# Cadastrar o root no samba
+smbpasswd - a root
+#
+# Desabilitar o Firewall e as alterações no regedit
