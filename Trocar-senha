@@ -16,6 +16,8 @@ Agora vamos criar um usuário normal, primeiro no linux
 
 root #> useradd -m -c "Pedro Delfino" -G TI -g users pedrodelfino
 
+gpasswd -a usuario grupo
+
 Definimos a senha
 
 root #> passwd pedrodelfino
